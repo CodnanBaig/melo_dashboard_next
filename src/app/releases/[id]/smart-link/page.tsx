@@ -6,6 +6,9 @@ import { useEffect } from 'react'
 import Layout from '@/components/Layout/Layout'
 import SmartLink from '@/pages/SmartLink'
 
+// Force dynamic rendering for authenticated pages
+export const dynamic = 'force-dynamic'
+
 export default function SmartLinkPage({ params }: { params: { id: string } }) {
   const { isAuthenticated, isLoading } = useAuth()
   const router = useRouter()

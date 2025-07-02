@@ -6,6 +6,9 @@ import { useEffect } from 'react'
 import Layout from '@/components/Layout/Layout'
 import Analytics from '@/pages/Analytics'
 
+// Force dynamic rendering for authenticated pages
+export const dynamic = 'force-dynamic'
+
 export default function AnalyticsPage() {
   const { isAuthenticated, isLoading } = useAuth()
   const router = useRouter()

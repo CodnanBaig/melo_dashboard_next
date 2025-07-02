@@ -6,6 +6,9 @@ import { useEffect } from 'react'
 import Layout from '@/components/Layout/Layout'
 import Royalties from '@/pages/Royalties'
 
+// Force dynamic rendering for authenticated pages
+export const dynamic = 'force-dynamic'
+
 export default function RoyaltiesPage() {
   const { isAuthenticated, isLoading } = useAuth()
   const router = useRouter()

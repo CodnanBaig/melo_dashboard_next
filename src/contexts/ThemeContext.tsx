@@ -22,19 +22,32 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [isDark, setIsDark] = useState(() => {
-    const saved = localStorage.getItem('melo_theme');
-    return saved ? JSON.parse(saved) : false;
-  });
+  const [isDark, setIsDark] = useState(false); // Default to false for SSR
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem('melo_theme', JSON.stringify(isDark));
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
+    // Mark as client-side
+    setIsClient(true);
+    
+    // Initialize theme from localStorage
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('melo_theme');
+      const initialTheme = saved ? JSON.parse(saved) : false;
+      setIsDark(initialTheme);
     }
-  }, [isDark]);
+  }, []);
+
+  useEffect(() => {
+    // Only run on client side
+    if (typeof window !== 'undefined' && isClient) {
+      localStorage.setItem('melo_theme', JSON.stringify(isDark));
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    }
+  }, [isDark, isClient]);
 
   const toggleTheme = () => {
     setIsDark(!isDark);

@@ -7,7 +7,7 @@ import {
   Copy, 
   Download, 
   ExternalLink,
-  Smartphone,
+  // Smartphone,
   Globe,
   Music,
   Palette,
@@ -28,7 +28,7 @@ export default function SmartLink({ releaseId }: { releaseId: string }) {
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
           Smart Link not available
         </h1>
-        <Link to="/releases">
+        <Link href="/releases">
           <Button>Back to Releases</Button>
         </Link>
       </div>
@@ -208,7 +208,7 @@ export default function SmartLink({ releaseId }: { releaseId: string }) {
 
             <div className="space-y-3">
               <h4 className="font-medium text-gray-900 dark:text-white">Platform Clicks</h4>
-              {platforms.map((platform, index) => (
+              {platforms.map((platform) => (
                 <div key={platform.name} className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className={`w-4 h-4 ${platform.color} rounded`} />

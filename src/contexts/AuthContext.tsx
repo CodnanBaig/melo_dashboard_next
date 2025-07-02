@@ -31,10 +31,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check for existing session
-    const savedUser = localStorage.getItem('melo_user');
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
+    // Check for existing session - only run on client side
+    if (typeof window !== 'undefined') {
+      const savedUser = localStorage.getItem('melo_user');
+      if (savedUser) {
+        try {
+          setUser(JSON.parse(savedUser));
+        } catch (error) {
+          console.error('Error parsing saved user:', error);
+          localStorage.removeItem('melo_user');
+        }
+      }
     }
     setIsLoading(false);
   }, []);
@@ -57,7 +64,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
         isVerified: true,
       };
       setUser(newUser);
-      localStorage.setItem('melo_user', JSON.stringify(newUser));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('melo_user', JSON.stringify(newUser));
+      }
     } else {
       throw new Error('Invalid OTP');
     }
@@ -65,7 +74,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('melo_user');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('melo_user');
+    }
   };
 
   const value = {

@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Users, 
-  Globe, 
-  Music, 
   Play,
   Heart,
   Share2,
   SkipForward,
-  Calendar,
   Download
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
@@ -19,6 +15,18 @@ import { mockReleases } from '../data/mockData';
 export default function Analytics() {
   const [selectedPeriod, setSelectedPeriod] = useState('30');
   const [selectedRelease, setSelectedRelease] = useState('all');
+  const [windowWidth, setWindowWidth] = useState(1024); // Default width for SSR
+
+  useEffect(() => {
+    // Set initial width
+    setWindowWidth(window.innerWidth);
+
+    // Add resize listener
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const liveReleases = mockReleases.filter(r => r.status === 'live');
   const totalStreams = liveReleases.reduce((sum, release) => sum + release.analytics.streams, 0);
@@ -36,7 +44,7 @@ export default function Analytics() {
         acc.push({ ...region });
       }
       return acc;
-    }, [] as any[])
+    }, [] as typeof liveReleases[0]['analytics']['topRegions'])
     .sort((a, b) => b.streams - a.streams)
     .slice(0, 6);
 
@@ -50,7 +58,7 @@ export default function Analytics() {
         acc.push({ ...platform });
       }
       return acc;
-    }, [] as any[])
+    }, [] as typeof liveReleases[0]['analytics']['topPlatforms'])
     .sort((a, b) => b.streams - a.streams);
 
   const monthlyGrowth = [
@@ -207,11 +215,11 @@ export default function Analytics() {
                     cy="50%"
                     labelLine={false}
                     label={({ platform, percentage }) => `${platform} ${percentage}%`}
-                    outerRadius={window.innerWidth < 640 ? 80 : 100}
+                    outerRadius={windowWidth < 640 ? 80 : 100}
                     fill="#8884d8"
                     dataKey="streams"
                   >
-                    {topPlatforms.map((entry, index) => (
+                    {topPlatforms.map((_, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>

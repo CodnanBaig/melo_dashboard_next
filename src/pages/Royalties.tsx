@@ -5,8 +5,7 @@ import {
   Calendar, 
   TrendingUp, 
   Download, 
-  Filter,
-  Music,
+  // Music,
   Globe,
   Play
 } from 'lucide-react';
@@ -44,7 +43,7 @@ export default function Royalties() {
         });
       }
       return acc;
-    }, [] as any[])
+    }, [] as Array<{ name: string; earnings: number; streams: number }>)
     .sort((a, b) => b.earnings - a.earnings);
 
   const allRegions = mockRoyaltyReports
@@ -62,7 +61,7 @@ export default function Royalties() {
         });
       }
       return acc;
-    }, [] as any[])
+    }, [] as Array<{ country: string; earnings: number; streams: number }>)
     .sort((a, b) => b.earnings - a.earnings);
 
   const COLORS = ['#8B5CF6', '#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5A2B'];
@@ -222,7 +221,7 @@ export default function Royalties() {
                   fill="#8884d8"
                   dataKey="earnings"
                 >
-                  {allPlatforms.map((entry, index) => (
+                  {allPlatforms.map((_, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
@@ -293,7 +292,7 @@ export default function Royalties() {
               Regional Performance
             </h3>
             <div className="space-y-4">
-              {allRegions.map((region, index) => (
+              {allRegions.map((region) => (
                 <div key={region.country} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                   <div className="flex items-center gap-3">
                     <Globe className="w-4 h-4 text-gray-400" />

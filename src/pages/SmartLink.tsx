@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
+import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   ArrowLeft, 
@@ -7,7 +7,7 @@ import {
   Copy, 
   Download, 
   ExternalLink,
-  // Smartphone,
+  Smartphone,
   Globe,
   Music,
   Palette,
@@ -18,8 +18,9 @@ import Card from '../components/UI/Card';
 import Button from '../components/UI/Button';
 import { mockReleases } from '../data/mockData';
 
-export default function SmartLink({ releaseId }: { releaseId: string }) {
-  const release = mockReleases.find(r => r.id === releaseId);
+export default function SmartLink() {
+  const { id } = useParams();
+  const release = mockReleases.find(r => r.id === id);
   const [copied, setCopied] = useState(false);
 
   if (!release || !release.smartLink) {
@@ -28,7 +29,7 @@ export default function SmartLink({ releaseId }: { releaseId: string }) {
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
           Smart Link not available
         </h1>
-        <Link href="/releases">
+        <Link to="/releases">
           <Button>Back to Releases</Button>
         </Link>
       </div>
@@ -54,7 +55,7 @@ export default function SmartLink({ releaseId }: { releaseId: string }) {
     <div className="p-4 lg:p-6 space-y-6">
       {/* Header */}
       <div className="flex items-center gap-4">
-        <Link href={`/releases/${releaseId}`}>
+        <Link to={`/releases/${id}`}>
           <Button variant="ghost" icon={<ArrowLeft className="w-4 h-4" />}>
             Back
           </Button>
@@ -208,7 +209,7 @@ export default function SmartLink({ releaseId }: { releaseId: string }) {
 
             <div className="space-y-3">
               <h4 className="font-medium text-gray-900 dark:text-white">Platform Clicks</h4>
-              {platforms.map((platform) => (
+              {platforms.map((platform, index) => (
                 <div key={platform.name} className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className={`w-4 h-4 ${platform.color} rounded`} />

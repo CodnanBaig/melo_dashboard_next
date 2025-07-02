@@ -1,12 +1,12 @@
 import React from 'react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   Plus, 
   TrendingUp, 
   Music, 
   DollarSign, 
-  // Users, 
+  Users, 
   Play,
   Eye,
   Share2,
@@ -53,7 +53,7 @@ export default function Dashboard() {
             Here's what's happening with your music today
           </p>
         </div>
-        <Link href="/releases/create">
+        <Link to="/releases/create">
           <Button
             icon={<Plus className="w-5 h-5" />}
             size="lg"
@@ -107,7 +107,7 @@ export default function Dashboard() {
                 Monthly Streams
               </h3>
               <Link 
-                href="/analytics" 
+                to="/analytics" 
                 className="text-purple-600 hover:text-purple-700 text-sm font-medium flex items-center gap-1"
               >
                 View Details <ArrowRight className="w-4 h-4" />
@@ -152,7 +152,7 @@ export default function Dashboard() {
                 Monthly Earnings
               </h3>
               <Link 
-                href="/royalties" 
+                to="/royalties" 
                 className="text-purple-600 hover:text-purple-700 text-sm font-medium flex items-center gap-1"
               >
                 View Reports <ArrowRight className="w-4 h-4" />
@@ -202,7 +202,7 @@ export default function Dashboard() {
                 Recent Releases
               </h3>
               <Link 
-                href="/releases" 
+                to="/releases" 
                 className="text-purple-600 hover:text-purple-700 text-sm font-medium flex items-center gap-1"
               >
                 View All <ArrowRight className="w-4 h-4" />
@@ -250,22 +250,22 @@ export default function Dashboard() {
               Quick Actions
             </h3>
             <div className="space-y-3">
-              <Link href="/releases/create" className="block">
+              <Link to="/releases/create" className="block">
                 <Button variant="outline" className="w-full justify-start" icon={<Plus className="w-4 h-4" />}>
                   Create New Release
                 </Button>
               </Link>
-              <Link href="/analytics" className="block">
+              <Link to="/analytics" className="block">
                 <Button variant="outline" className="w-full justify-start" icon={<Eye className="w-4 h-4" />}>
                   View Analytics
                 </Button>
               </Link>
-              <Link href="/payouts" className="block">
+              <Link to="/payouts" className="block">
                 <Button variant="outline" className="w-full justify-start" icon={<DollarSign className="w-4 h-4" />}>
                   Request Payout
                 </Button>
               </Link>
-              <Link href="/help" className="block">
+              <Link to="/help" className="block">
                 <Button variant="outline" className="w-full justify-start" icon={<Share2 className="w-4 h-4" />}>
                   Pitching Guide
                 </Button>

@@ -6,8 +6,9 @@ import { useEffect } from 'react'
 import Layout from '@/components/Layout/Layout'
 import Settings from '@/pages/Settings'
 
-// Force dynamic rendering for authenticated pages
+// Disable static generation for authenticated pages
 export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 export default function SettingsPage() {
   const { isAuthenticated, isLoading } = useAuth()

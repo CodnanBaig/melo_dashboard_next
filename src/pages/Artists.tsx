@@ -4,6 +4,7 @@ import {
   Plus, 
   Search, 
   User, 
+  Mail, 
   Instagram, 
   Youtube, 
   Music,

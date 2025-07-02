@@ -1,5 +1,3 @@
-'use client';
-
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface ThemeContextType {
@@ -22,32 +20,19 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [isDark, setIsDark] = useState(false); // Default to false for SSR
-  const [isClient, setIsClient] = useState(false);
+  const [isDark, setIsDark] = useState(() => {
+    const saved = localStorage.getItem('melo_theme');
+    return saved ? JSON.parse(saved) : false;
+  });
 
   useEffect(() => {
-    // Mark as client-side
-    setIsClient(true);
-    
-    // Initialize theme from localStorage
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('melo_theme');
-      const initialTheme = saved ? JSON.parse(saved) : false;
-      setIsDark(initialTheme);
+    localStorage.setItem('melo_theme', JSON.stringify(isDark));
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
     }
-  }, []);
-
-  useEffect(() => {
-    // Only run on client side
-    if (typeof window !== 'undefined' && isClient) {
-      localStorage.setItem('melo_theme', JSON.stringify(isDark));
-      if (isDark) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-    }
-  }, [isDark, isClient]);
+  }, [isDark]);
 
   const toggleTheme = () => {
     setIsDark(!isDark);

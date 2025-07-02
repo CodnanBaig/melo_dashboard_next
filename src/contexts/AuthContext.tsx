@@ -1,5 +1,3 @@
-'use client';
-
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User } from '../types';
 
@@ -31,17 +29,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check for existing session - only run on client side
-    if (typeof window !== 'undefined') {
-      const savedUser = localStorage.getItem('melo_user');
-      if (savedUser) {
-        try {
-          setUser(JSON.parse(savedUser));
-        } catch (error) {
-          console.error('Error parsing saved user:', error);
-          localStorage.removeItem('melo_user');
-        }
-      }
+    // Check for existing session
+    const savedUser = localStorage.getItem('melo_user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
     }
     setIsLoading(false);
   }, []);
@@ -64,9 +55,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         isVerified: true,
       };
       setUser(newUser);
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('melo_user', JSON.stringify(newUser));
-      }
+      localStorage.setItem('melo_user', JSON.stringify(newUser));
     } else {
       throw new Error('Invalid OTP');
     }
@@ -74,9 +63,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const logout = () => {
     setUser(null);
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('melo_user');
-    }
+    localStorage.removeItem('melo_user');
   };
 
   const value = {

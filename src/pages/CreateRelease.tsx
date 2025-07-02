@@ -4,6 +4,8 @@ import {
   Upload, 
   Music, 
   Image, 
+  Calendar, 
+  Users, 
   Save, 
   Eye,
   X,
@@ -47,7 +49,7 @@ export default function CreateRelease() {
     { id: '1', title: '', duration: '' }
   ]);
   
-
+  const [isDraft, setIsDraft] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -105,7 +107,7 @@ export default function CreateRelease() {
     }));
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (asDraft = false) => {
     setIsUploading(true);
     setUploadProgress(0);
 
@@ -122,7 +124,7 @@ export default function CreateRelease() {
       });
     }, 500);
 
-
+    setIsDraft(asDraft);
   };
 
   const canSubmitForPitching = () => {
@@ -256,7 +258,7 @@ export default function CreateRelease() {
                 </label>
                 <select
                   value={releaseData.type}
-                  onChange={(e) => setReleaseData(prev => ({ ...prev, type: e.target.value as 'single' | 'ep' | 'album' }))}
+                  onChange={(e) => setReleaseData(prev => ({ ...prev, type: e.target.value as any }))}
                   className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 >
                   <option value="single">Single</option>
@@ -398,10 +400,9 @@ export default function CreateRelease() {
                       id="artwork-upload"
                     />
                     <label htmlFor="artwork-upload">
-                      <span className="inline-flex items-center justify-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition-colors">
-                        <Upload className="w-4 h-4 mr-2" />
+                      <Button as="span" icon={<Upload className="w-4 h-4" />}>
                         Choose File
-                      </span>
+                      </Button>
                     </label>
                   </div>
                 )}
@@ -509,10 +510,14 @@ export default function CreateRelease() {
                           id={`track-upload-${track.id}`}
                         />
                         <label htmlFor={`track-upload-${track.id}`}>
-                          <span className="inline-flex items-center justify-center px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition-colors">
-                            <Upload className="w-4 h-4 mr-2" />
+                          <Button
+                            as="span"
+                            variant="outline"
+                            size="sm"
+                            icon={<Upload className="w-4 h-4" />}
+                          >
                             Choose File
-                          </span>
+                          </Button>
                         </label>
                       </div>
                     )}
@@ -701,14 +706,14 @@ export default function CreateRelease() {
               <>
                 <Button
                   variant="outline"
-                  onClick={() => handleSubmit()}
+                  onClick={() => handleSubmit(true)}
                   disabled={isUploading}
                   icon={<Save className="w-4 h-4" />}
                 >
                   Save as Draft
                 </Button>
                 <Button
-                  onClick={() => handleSubmit()}
+                  onClick={() => handleSubmit(false)}
                   disabled={isUploading}
                   icon={<Upload className="w-4 h-4" />}
                 >

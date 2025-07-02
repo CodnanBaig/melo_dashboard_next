@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   ArrowLeft, 
@@ -9,9 +9,9 @@ import {
   Play, 
   Users,
   Calendar,
-    // Music,
-    // TrendingUp,
-    // Eye,
+  Music,
+  TrendingUp,
+  Eye,
   Heart,
   SkipForward,
   Link as LinkIcon,
@@ -23,8 +23,9 @@ import Button from '../components/UI/Button';
 import StatusBadge from '../components/UI/StatusBadge';
 import { mockReleases } from '../data/mockData';
 
-export default function ReleaseDetails({ releaseId }: { releaseId: string }) {
-  const release = mockReleases.find(r => r.id === releaseId);
+export default function ReleaseDetails() {
+  const { id } = useParams();
+  const release = mockReleases.find(r => r.id === id);
 
   if (!release) {
     return (
@@ -32,7 +33,7 @@ export default function ReleaseDetails({ releaseId }: { releaseId: string }) {
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
           Release not found
         </h1>
-        <Link href="/releases">
+        <Link to="/releases">
           <Button>Back to Releases</Button>
         </Link>
       </div>
@@ -52,7 +53,7 @@ export default function ReleaseDetails({ releaseId }: { releaseId: string }) {
     <div className="p-4 lg:p-6 space-y-6">
       {/* Header */}
       <div className="flex items-center gap-4">
-        <Link href="/releases">
+        <Link to="/releases">
           <Button variant="ghost" icon={<ArrowLeft className="w-4 h-4" />}>
             Back
           </Button>
@@ -149,7 +150,7 @@ export default function ReleaseDetails({ releaseId }: { releaseId: string }) {
                       Generate Hyperlink
                     </Button>
                     {release.smartLink && (
-                      <Link href={`/releases/${release.id}/smart-link`}>
+                      <Link to={`/releases/${release.id}/smart-link`}>
                         <Button
                           variant="outline"
                           icon={<ExternalLink className="w-4 h-4" />}
@@ -313,7 +314,7 @@ export default function ReleaseDetails({ releaseId }: { releaseId: string }) {
                       fill="#8884d8"
                       dataKey="streams"
                     >
-                      {release.analytics.topPlatforms.map((_, index) => (
+                      {release.analytics.topPlatforms.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>

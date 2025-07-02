@@ -7,7 +7,7 @@ import {
   CheckCircle, 
   AlertCircle,
   CreditCard,
-  // Calendar,
+  Calendar,
   TrendingUp
 } from 'lucide-react';
 import Card from '../components/UI/Card';

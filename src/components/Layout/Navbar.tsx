@@ -1,8 +1,5 @@
-'use client';
-
 import React, { useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, useLocation } from 'react-router-dom';
 import { 
   Home, 
   Music, 
@@ -39,7 +36,7 @@ const navItems = [
 ];
 
 export default function Navbar() {
-  const pathname = usePathname();
+  const location = useLocation();
   const { user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
   const { unreadCount } = useNotifications();
@@ -65,12 +62,12 @@ export default function Navbar() {
           <div className="space-y-2">
             {navItems.map((item) => {
               const Icon = item.icon;
-              const isActive = pathname === item.path;
+              const isActive = location.pathname === item.path;
 
               return (
                 <Link
                   key={item.path}
-                  href={item.path}
+                  to={item.path}
                   className={`flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors duration-200 ${
                     isActive
                       ? 'bg-purple-100 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400'
@@ -187,12 +184,12 @@ export default function Navbar() {
             <nav className="px-4 py-4 space-y-2">
               {navItems.map((item) => {
                 const Icon = item.icon;
-                const isActive = pathname === item.path;
+                const isActive = location.pathname === item.path;
 
                 return (
                   <Link
                     key={item.path}
-                    href={item.path}
+                    to={item.path}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={`flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors duration-200 ${
                       isActive

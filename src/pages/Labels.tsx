@@ -154,7 +154,7 @@ export default function Labels() {
                       id={`upload-${doc.key}`}
                     />
                     <label htmlFor={`upload-${doc.key}`}>
-                      <Button variant="outline" size="sm" className="mt-2">
+                      <Button as="span" variant="outline" size="sm" className="mt-2">
                         Choose File
                       </Button>
                     </label>
@@ -201,7 +201,7 @@ export default function Labels() {
                     id="upload-contract"
                   />
                   <label htmlFor="upload-contract">
-                    <Button variant="outline" size="sm" className="mt-2">
+                    <Button as="span" variant="outline" size="sm" className="mt-2">
                       Choose File
                     </Button>
                   </label>

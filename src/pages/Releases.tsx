@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { 
   Plus, 
@@ -89,7 +89,7 @@ export default function Releases() {
         <Menu.Item>
           {({ active }) => (
             <Link
-              to={`/releases/${release.id}`}
+              href={`/releases/${release.id}`}
               className={`flex items-center gap-2 px-4 py-2 text-sm ${
                 active ? 'bg-gray-100 dark:bg-gray-700' : ''
               } text-gray-700 dark:text-gray-300`}
@@ -127,7 +127,7 @@ export default function Releases() {
           <Menu.Item>
             {({ active }) => (
               <Link
-                to={`/releases/${release.id}/smart-link`}
+                href={`/releases/${release.id}/smart-link`}
                 className={`flex items-center gap-2 px-4 py-2 text-sm ${
                   active ? 'bg-gray-100 dark:bg-gray-700' : ''
                 } text-gray-700 dark:text-gray-300`}
@@ -370,7 +370,7 @@ export default function Releases() {
             Manage and track all your music releases
           </p>
         </div>
-        <Link to="/releases/create">
+        <Link href="/releases/create">
           <Button
             icon={<Plus className="w-5 h-5" />}
             size="lg"

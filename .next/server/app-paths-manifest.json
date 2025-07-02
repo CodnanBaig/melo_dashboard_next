@@ -1,5 +1,16 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
+  "/artists/page": "app/artists/page.js",
+  "/login/page": "app/login/page.js",
+  "/help/page": "app/help/page.js",
+  "/labels/page": "app/labels/page.js",
+  "/analytics/page": "app/analytics/page.js",
+  "/payouts/page": "app/payouts/page.js",
   "/page": "app/page.js",
-  "/login/page": "app/login/page.js"
+  "/releases/[id]/page": "app/releases/[id]/page.js",
+  "/releases/create/page": "app/releases/create/page.js",
+  "/releases/[id]/smart-link/page": "app/releases/[id]/smart-link/page.js",
+  "/releases/page": "app/releases/page.js",
+  "/royalties/page": "app/royalties/page.js",
+  "/settings/page": "app/settings/page.js"
 }

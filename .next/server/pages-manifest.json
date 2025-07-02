@@ -1,5 +1,17 @@
 {
-  "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
+  "/_app": "pages/_app.js",
+  "/Analytics": "pages/Analytics.js",
+  "/Artists": "pages/Artists.js",
+  "/Dashboard": "pages/Dashboard.js",
+  "/CreateRelease": "pages/CreateRelease.js",
+  "/Help": "pages/Help.js",
+  "/Labels": "pages/Labels.js",
+  "/Payouts": "pages/Payouts.js",
+  "/ReleaseDetails": "pages/ReleaseDetails.js",
+  "/Releases": "pages/Releases.js",
+  "/Royalties": "pages/Royalties.js",
+  "/SmartLink": "pages/SmartLink.js",
+  "/Settings": "pages/Settings.js",
   "/_document": "pages/_document.js"
 }
